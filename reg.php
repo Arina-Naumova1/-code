@@ -2,7 +2,7 @@
 if(isset($_POST['login'])) {
 	$errors = array();
 	if(trim($_POST['login']) == '') {
-		$errors[] = "Введите логин!";
+		$errors[] = "Введите логин";
 	}
 	if(trim($_POST['email']) == '') {
 		$errors[] = "Введите Email";
