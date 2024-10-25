@@ -1,3 +1,11 @@
+<h2>Регистрация</h2>
+<form method="POST"> 
+  	<p><input type="text" class="form-control" name="name">Имя пользователя:</p>
+  	<p><input type="text" class="form-control" name="email">Email:</p>
+    <p><input type="text" class="form-control" name="password">Пароль:</p>
+    <p><label for="password-repeat">Повторите пароль:</label></p>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+ </form>
 <?php
 if(isset($_POST['login'])) {
   $errors = array();
