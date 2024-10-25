@@ -6,6 +6,8 @@
     <p><label for="password-repeat">Повторите пароль:</label></p>
     <button type="submit" class="btn btn-primary">Сохранить</button>
  </form>
+
+
 <?php
 if(isset($_POST['login'])) {
   $errors = array();
