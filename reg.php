@@ -1,62 +1,45 @@
-<h2>Регистрация</h2>
-<form method="POST"> 
-  	<p><input type="text" class="form-control" name="name">Имя пользователя:</p>
-  	<p><input type="text" class="form-control" name="email">Email:</p>
-    <p><input type="text" class="form-control" name="password">Пароль:</p>
-    <p><label for="password-repeat">Повторите пароль:</label></p>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
- </form>
+<? 
+inclube(bd.php);
 
+if (isset($_POST['go'])) {
 
-<?php
-if(isset($_POST['login'])) {
-  $errors = array();
-  if(trim($_POST['login']) == '') {
-    $errors[] = "Введите логин";
-  }
-  if(trim($_POST['email']) == '') {
-    $errors[] = "Введите Email";
-  }
-  if(trim($_POST['name']) == '') {
-    $errors[] = "Введите Имя";
-  }
-  if($_POST['password'] == '') {
-    $errors[] = "Введите пароль";
-  }
-  if($_POST['password_2'] != $_POST['password']) {
-    $errors[] = "Повторный пароль введен не верно!";
-  }
-  if (mb_strlen($_POST['name']) < 3 || mb_strlen($_POST['name']) > 50){   
-    $errors[] = "Недопустимая длина имени";
-  }
-  if (strlen($_POST['password']) < 2 || strlen($_POST['password']) > 8){
-    $errors[] = "Недопустимая длина пароля (от 2 до 8 символов)";
-  }
+    $login = $_POST['login'];
+    $password = $_POST['password'];
 
-  $connect = mysqli_connect($dbhost, $dbuser, $dbpassword, $database) or die("Connection Error: " . mysqli_error($connect));
-  if (!$connect) {
-    die("Connection Error: " . mysqli_connect_error());
-  }
-
-  $login = mysqli_real_escape_string($connect, trim($_POST['login']));
-  $pass = hash('sha256', trim($_POST['password']));
-
-  $SQL = "SELECT * FROM users WHERE login = '$login'";// AND pass = '$pass'";
-  $check_user = mysqli_query($connect, $SQL) or die("Query Error: " . mysqli_error($connect));
-  
-  if (mysqli_num_rows($check_user) > 0) {
-    echo "<h2>Такой пользователь уже существует</h2>";
-  } else {
-    $SQL = "INSERT INTO users (login, pass) VALUES ('$login', '$pass')";
-    $insert = mysqli_query($connect, $SQL) or die("Query Error: " . mysqli_error($connect));
-  
-    if (!$insert) {
-      $_SESSION["messageSQL"] = mysqli_error($connect);
-    } else {
-      echo "<h2>Учётная запись создана</h2>";
+    if (!$login || !$password || !$name)
+    {
+        echo = 'Вы не ввели логин или пароль!';
     }
-  }
+   if (!error) {
 
-  mysqli_close($connect);
+    $query = "INSERT  INTO 'users' ('id', 'login', 'password') VALUES ('NULL', '$login', '$password');";
+    mysqli_query($link, $query);
+    echo = 'Вы успешно создали пользователя'
+   } else { echo $error; exit; }
+
 }
+
+
 ?>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Главная</title>
+</head>
+
+<body>
+    <form method="POST">
+        <p>Имя пользователя: <input type="text" name="name" class="form-control" placeholder="User Name"></p>
+        <p>Логин: <input type="text" name="login" class="form-control" placeholder="Enter email"></p>
+        <p>Пароль: <input type="text" name="password" class="form-control" placeholder="Password"></p>
+        <p><input type="submit" name="go" class="btn btn-primary" valua="Сохранить"></p>
+        <p>Уже зарегистрированы? <a href="login.html">Войдите в систему</a></p>
+    </form>
+</body>
+
+</html>
