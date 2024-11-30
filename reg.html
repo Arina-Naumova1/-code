@@ -4,28 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Регистрация</title>
 </head>
 
 <body>
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-        <link rel=" stylesheet " type="text/css " href="css/style.css ">
-        <meta http-equiv="X-UA-Compatible " content="ie=edge ">
-        <title>Главная</title>
-    </head>
-
-    <body>
-        <form method="POST ">
-            <p>Имя пользователя: <input type="text " name="name " class="form-control " placeholder="User Name "></p>
-            <p>Логин: <input type="text " name="login " class="form-control " placeholder="Enter email "></p>
-            <p>Пароль: <input type="text " name="password " class="form-control " placeholder="Password "></p>
-            <p>Уже зарегистрированы? <a href="login.html " class="btn btn-primary btn-lg active " role="button " aria-pressed="true ">Войдите в систему</a></p>
+    <div class="container mt-5">
+        <h2 class="text-center">Регистрация</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">Имя пользователя:</label>
+                <input type="text" name="name" class="form-control" id="username" placeholder="User Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Логин:</label>
+                <input type="email" name="login" class="form-control" id="email" placeholder="Enter email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info btn-lg btn-block">Зарегистрироваться</button>
+            </div>
+            <p class="text-center">Уже зарегистрированы? <a href="login.html" class="btn btn-info">Войдите в систему</a></p>
         </form>
-    </body>
+    </div>
 </body>
 
 </html>
