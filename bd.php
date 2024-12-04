@@ -1,13 +1,7 @@
 <?php
-if ($_SERVER["SERVER_NAME"] == '172.19.3.23') {
-    $dbhost = '172.19.3.23';
-    $dbuser = 'ivanova.ya.d';
-    $dbpassword = '3227';
-    $database = 'ivanova.ya.d';
 
-  } else {
-    $dbhost = 'localhost';
-    $dbuser = 'demo';
-    $dbpassword = 'demo';
-    $database = 'demo';
-  }
+    define("DB_SERVER", "localhost");
+	define("DB_USER", "ivanova.ya.d");
+	define("DB_PASS", "3227");
+	define("DB_NAME", "ivanova.ya.d");
+?>
