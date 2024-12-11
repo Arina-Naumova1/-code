@@ -14,13 +14,13 @@ if ($conn->connect_error) {
 }
 
 if (isset($_POST["login"])) {
-    if (!empty($_POST['login']) && !empty($_POST['password'])) { // Используйте 'login'
-        $login = htmlspecialchars($_POST['login']); // Изменим на 'login'
+    if (!empty($_POST['login']) && !empty($_POST['password'])) { 
+        $login = htmlspecialchars($_POST['login']); 
         $password = htmlspecialchars($_POST['password']);
         
         $stmt = $conn->prepare("SELECT password FROM usertbl WHERE username = ?");
         
-        if ($stmt) { // Проверка успешности подготовки запроса
+        if ($stmt) { 
             $stmt->bind_param("s", $login);
             $stmt->execute();
             $stmt->store_result();
@@ -42,7 +42,7 @@ if (isset($_POST["login"])) {
             
             $stmt->close();
         } else {
-            echo "Ошибка выполнения запроса!"; // Обработка ошибок
+            echo "Ошибка выполнения запроса!"; 
         }
     } else {
         echo "Все поля обязательны для заполнения!";
@@ -70,13 +70,13 @@ $conn->close();
                 <form method="POST">
                     <div class="form-group">
                         <label for="login">Логин</label>
-                        <input type="text" name="login" class="form-control" id="login" placeholder="Введите имя пользователя" required> <!-- Изменил placeholder -->
+                        <input type="text" name="login" class="form-control" id="login" placeholder="Введите имя пользователя" required> 
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль" required>
                     </div>
-                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button> <!-- Добавил name для кнопки -->
+                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button>
                 </form>
                 <div class="text-center mt-3">
                     <p>Нет аккаунта? <a href="reg.html" class="btn btn-info">Создайте его за минуту</a></p>
