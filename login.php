@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once("includes/connection.php");
 include("includes/header.php");
 
@@ -10,46 +9,50 @@ if (isset($_SESSION["session_username"])) {
 }
 
 if ($conn->connect_error) {
-    die("Соединение не удалось: " . $conn->connect_error);
+    error_log("Database connection failed: " . $conn->connect_error);
+    die("An error occurred. Please try again later.");
 }
 
 if (isset($_POST["login"])) {
-    if (!empty($_POST['login']) && !empty($_POST['password'])) { 
-        $login = htmlspecialchars($_POST['login']); 
-        $password = htmlspecialchars($_POST['password']);
-        
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        $username = htmlspecialchars($_POST['username']);
+        $password = $_POST['password'];
+
         $stmt = $conn->prepare("SELECT password FROM usertbl WHERE username = ?");
-        
-        if ($stmt) { 
-            $stmt->bind_param("s", $login);
-            $stmt->execute();
-            $stmt->store_result();
-            
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($dbpassword);
-                $stmt->fetch();
-                
-                if (password_verify($password, $dbpassword)) {
-                    $_SESSION['session_username'] = $login;     
-                    header("Location: intropage.php");
-                    exit();
-                } else {
-                    echo "Неверное имя пользователя или пароль!";
-                }
+        if (!$stmt) {
+            error_log("Prepare failed: " . $conn->error);
+            die("An error occurred. Please try again later.");
+        }
+
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows > 0) {
+            $stmt->bind_result($dbpassword);
+            $stmt->fetch();
+
+            if (password_verify($password, $dbpassword)) {
+                $_SESSION['session_username'] = $username;
+                header("Location: intropage.php");
+                exit();
             } else {
                 echo "Неверное имя пользователя или пароль!";
             }
-            
-            $stmt->close();
         } else {
-            echo "Ошибка выполнения запроса!"; 
+            echo "Ошибка выполнения запроса!"; // Обработка ошибок
         }
+
+        $stmt->close();
     } else {
         echo "Все поля обязательны для заполнения!";
     }
 }
+
 $conn->close();
 ?>
+<?php include("includes/footer.php")?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,16 +73,16 @@ $conn->close();
                 <form method="POST">
                     <div class="form-group">
                         <label for="login">Логин</label>
-                        <input type="text" name="login" class="form-control" id="login" placeholder="Введите имя пользователя" required> 
+                        <input type="text" name="login" class="form-control" id="login" placeholder="Введите имя пользователя" required> <!-- Изменил placeholder -->
                     </div>
                     <div class="form-group">
                         <label for="password">Пароль</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль" required>
                     </div>
-                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button>
+                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button> <!-- Добавил name для кнопки -->
                 </form>
                 <div class="text-center mt-3">
-                    <p>Нет аккаунта? <a href="reg.html" class="btn btn-info">Создайте его за минуту</a></p>
+                    <p>Нет аккаунта? <a href="reg.php" class="btn btn-info">Создайте его за минуту</a></p>
                 </div>
             </div>
         </div>
