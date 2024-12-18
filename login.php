@@ -40,8 +40,7 @@ if (isset($_POST["login"])) {
                 echo "Неверное имя пользователя или пароль!";
             }
         } else {
-            echo "Ошибка выполнения запроса!"; // Обработка ошибок
-        }
+            echo "Ошибка выполнения запроса!"; 
 
         $stmt->close();
     } else {
@@ -77,7 +76,7 @@ $conn->close();
                         <label for="password">Пароль</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Введите пароль" required>
                     </div>
-                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button> <!-- Добавил name для кнопки -->
+                    <button type="submit" name="login" class="btn btn-info btn-block">Войти</button> 
                 </form>
                 <div class="text-center mt-3">
                     <p>Нет аккаунта? <a href="reg.php" class="btn btn-info">Создайте его за минуту</a></p>
